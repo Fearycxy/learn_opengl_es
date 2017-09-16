@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/airhockey1/airhockey1.iml" filepath="$PROJECT_DIR$/airhockey1/airhockey1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/airhockey2/airhockey2.iml" filepath="$PROJECT_DIR$/airhockey2/airhockey2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/media.iml" filepath="$PROJECT_DIR$/media.iml" />
     </modules>
   </component>
