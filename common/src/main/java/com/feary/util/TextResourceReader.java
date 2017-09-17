@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 
 public class TextResourceReader {
 
-    public static String readTexFileFromResource(Context context,int resourceId){
+    public static String readTextFileFromResource(Context context, int resourceId){
         StringBuilder body = new StringBuilder();
 
         try {
