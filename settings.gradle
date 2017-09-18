@@ -1,1 +1,1 @@
-include ':common', ':airhockey1', ':airhockey2',':airhockeyortho'
+include ':common', ':airhockey1', ':airhockey2', ':airhockeyortho', ':airhockey3d'
