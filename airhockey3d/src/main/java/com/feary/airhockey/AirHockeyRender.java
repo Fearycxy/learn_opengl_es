@@ -81,7 +81,7 @@ public class AirHockeyRender implements Renderer {
                 //无论是x还是y OpenGL 都会将屏幕映射到 [-1,1] (百分比) 的范围内。所以我们要将之前定义的坐标做一些改变。
                 //Table
                 //Triangle Fan
-
+                0f, 0f, 0f, 1.5f, 1f, 1f, 1f,
                 -0.5f, -0.8f, 0f, 1f, 0.7f, 0.7f, 0.7f,
                 0.5f, -0.8f, 0f, 1f, 0.7f, 0.7f, 0.7f,
                 0.5f, 0.8f, 0f, 2f, 0.7f, 0.7f, 0.7f,
@@ -92,6 +92,7 @@ public class AirHockeyRender implements Renderer {
                 0.5f, 0f, 0f, 1.5f, 1f, 0f, 0f,
 
                 0f, -0.4f, 0f, 1.25f, 0f, 0f, 1f,
+                0f, 0.4f, 0f, 1.75f, 1f, 0f, 0f
         };
 
         //每个浮点4个字节，根据数组数量，分配相应大小本地内存，不受垃圾回收控制
