@@ -4,6 +4,7 @@ package com.feary.airhockey;
 import android.content.Context;
 import android.opengl.GLSurfaceView.Renderer;
 
+import com.feary.util.MatrixHelper;
 import com.feary.util.ShaderHelper;
 import com.feary.util.TextResourceReader;
 
@@ -32,7 +33,11 @@ import static android.opengl.GLES20.glUniformMatrix4fv;
 import static android.opengl.GLES20.glUseProgram;
 import static android.opengl.GLES20.glVertexAttribPointer;
 import static android.opengl.GLES20.glViewport;
+import static android.opengl.Matrix.multiplyMM;
 import static android.opengl.Matrix.orthoM;
+import static android.opengl.Matrix.rotateM;
+import static android.opengl.Matrix.setIdentityM;
+import static android.opengl.Matrix.translateM;
 
 /**
  * Created by feary on 2017/9/15.
@@ -44,13 +49,15 @@ public class AirHockeyRender implements Renderer {
 
     private final float[] projectionMatrix = new float[16];
 
+    private final float[] modelMatrix = new float[16];//模型矩阵
+
     private int uMatrixLocation;
 
     //每个浮点占用4个字节
     private static final int BYTES_PER_FLOAT = 4;
 
     //每一个顶点位置分量的数量
-    private static final int POSITION_COMPONENT_COUNT = 4;
+    private static final int POSITION_COMPONENT_COUNT = 2;
     //创建常量来容纳 OpenGL 程序中位置位置的变量
     private static final String A_POSITION = "a_Position";
     private int aPositionLocation;
@@ -75,8 +82,22 @@ public class AirHockeyRender implements Renderer {
         float[] tableVerticesWithTriangles = {
                 //Order of coordinates:X,Y,R,G,B
 
+                //Triangle Fan
+                0f, 0f, 1f, 1f, 1f,
+                -0.5f, -0.8f, 0.7f, 0.7f, 0.7f,
+                0.5f, -0.8f, 0.7f, 0.7f, 0.7f,
+                0.5f, 0.8f, 0.7f, 0.7f, 0.7f,
+                -0.5f, 0.8f, 0.7f, 0.7f, 0.7f,
+                -0.5f, -0.8f, 0.7f, 0.7f, 0.7f,
+
+                -0.5f, 0f, 1f, 0f, 0f,
+                0.5f, 0f, 1f, 0f, 0f,
+
+                0f, -0.25f, 0f, 0f, 1f,
+                0f, 0.25f, 1f, 0f, 0f
+
                 //OPENGL只能绘制点 线 以及三角形
-                //定义三角形要逆时针(卷曲顺序)，可以优化性能
+          /*      //定义三角形要逆时针(卷曲顺序)，可以优化性能
                 //数后面要加 f,否则判断为double
                 //无论是x还是y OpenGL 都会将屏幕映射到 [-1,1] (百分比) 的范围内。所以我们要将之前定义的坐标做一些改变。
                 //Table
@@ -92,7 +113,7 @@ public class AirHockeyRender implements Renderer {
                 0.5f, 0f, 0f, 1.5f, 1f, 0f, 0f,
 
                 0f, -0.4f, 0f, 1.25f, 0f, 0f, 1f,
-                0f, 0.4f, 0f, 1.75f, 1f, 0f, 0f
+                0f, 0.4f, 0f, 1.75f, 1f, 0f, 0f*/
         };
 
         //每个浮点4个字节，根据数组数量，分配相应大小本地内存，不受垃圾回收控制
@@ -162,12 +183,13 @@ public class AirHockeyRender implements Renderer {
         //窗口尺寸
         glViewport(0, 0, width, height);
         //适应屏幕的正交投影
-        final float aspectRatio = width > height ? (float) width / (float) height : (float) height / (float) width;
-        if (width > height) {
-            orthoM(projectionMatrix, 0, -aspectRatio, aspectRatio, -1f, 1f, -1f, 1f);
-        } else {
-            orthoM(projectionMatrix, 0, -1f, 1f, -aspectRatio, aspectRatio, -1f, 1f);
-        }
+        MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width / (float) height, 1f, 10f);
+        setIdentityM(modelMatrix, 0);//设置为单位矩阵
+        translateM(modelMatrix, 0, 0f, 0f, -2.5f);//z轴负方向移动2个单位
+        rotateM(modelMatrix, 0, -60f, 1f, 0f, 0f);
+        final float[] temp = new float[16];
+        multiplyMM(temp, 0, projectionMatrix, 0, modelMatrix, 0);//矩阵相乘
+        System.arraycopy(temp, 0, projectionMatrix, 0, temp.length);
     }
 
     //每绘制一帧的时候，这个方法被 GLSurfaceView 调用
