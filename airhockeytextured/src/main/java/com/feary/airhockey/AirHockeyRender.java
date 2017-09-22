@@ -54,7 +54,7 @@ public class AirHockeyRender implements Renderer {
     private int uMatrixLocation;
 
     //每个浮点占用4个字节
-    private static final int BYTES_PER_FLOAT = 4;
+    public static final int BYTES_PER_FLOAT = 4;
 
     //每一个顶点位置分量的数量
     private static final int POSITION_COMPONENT_COUNT = 2;
