@@ -2,8 +2,12 @@ package com.feary.airhockey.objects;
 
 import com.feary.airhockey.Constants;
 import com.feary.airhockey.data.VertexArray;
+import com.feary.airhockey.program.TextureShaderProgragm;
 
 import java.nio.FloatBuffer;
+
+import static android.opengl.GLES20.GL_TRIANGLE_FAN;
+import static android.opengl.GLES20.glDrawArrays;
 
 /**
  * Created by feary on 2017/9/21.
@@ -27,6 +31,25 @@ public class Table {
 
     public Table() {
         vertexArray = new VertexArray(VERTEX_DATA);
+    }
+
+    public void bindData(TextureShaderProgragm textureProgram){
+        vertexArray.setVertexAttribPointer(
+                0,
+                textureProgram.getPositionAttriButeLocation(),
+                POSITION_COMPONENT_COUNT,
+                STRIDE
+        );
+        vertexArray.setVertexAttribPointer(
+                POSITION_COMPONENT_COUNT,
+                textureProgram.getPositionAttriButeLocation(),
+                TEXTURE_COORDINATES_COMPONENT_COUNT,
+                STRIDE
+        );
+    }
+
+    public void draw(){
+        glDrawArrays(GL_TRIANGLE_FAN,0,6);
     }
 
 
