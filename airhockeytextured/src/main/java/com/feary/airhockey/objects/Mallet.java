@@ -18,7 +18,8 @@ public class Mallet {
             (POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT;
 
     private static final float[] VERTEX_DATA = {
-            0f, -0.4f, 0f, 0f, 1f, 0f, 0.4f, 1f, 0f, 0f
+            0f, -0.4f, 0f, 0f, 1f,
+            0f, 0.4f, 1f, 0f, 0f
     };
 
     private final VertexArray vertexArray;
@@ -28,10 +29,19 @@ public class Mallet {
     }
 
     public void bindData(ColorShaderProgram colorProgram) {
-        vertexArray.setVertexAttribPointer(0, colorProgram.getPositionAttributeLocation(),
-                POSITION_COMPONENT_COUNT, STRIDE);
-        vertexArray.setVertexAttribPointer(POSITION_COMPONENT_COUNT,
-                colorProgram.getColorAttributeLocation(), COLOR_COMPONENT_COUNT, STRIDE);
+        vertexArray.setVertexAttribPointer(
+                0,
+                colorProgram.getPositionAttributeLocation(),
+                POSITION_COMPONENT_COUNT,
+                STRIDE
+        );
+
+        vertexArray.setVertexAttribPointer(
+                POSITION_COMPONENT_COUNT,
+                colorProgram.getColorAttributeLocation(),
+                COLOR_COMPONENT_COUNT,
+                STRIDE
+        );
     }
 
     public void draw() {

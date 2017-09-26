@@ -83,15 +83,21 @@ public class ShaderHelper {
         return validateStatus[0] != ERROR_CODE;
     }
 
+    //程序构建器
     public static int buildProgram(String vertexShaderSource, String fragmentShaderSource) {
         int program;
 
-        //compile the shaders.
+        //编译着色器
         int vertexShader = compileVertexShader(vertexShaderSource);
         int fragmentShader = compileFragmentShader(fragmentShaderSource);
+
+        //将着色器连接到程序上
         program = linkProgram(vertexShader, fragmentShader);
         validateProgram(program);
         return program;
+
     }
+
+    ;
 
 }

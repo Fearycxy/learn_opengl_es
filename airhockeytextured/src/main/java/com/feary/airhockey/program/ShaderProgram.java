@@ -25,11 +25,13 @@ public class ShaderProgram {
     protected final int program;
 
     protected ShaderProgram(Context context, int vertexShaderResourceId, int fragmentShaderResourceId) {
-        program = ShaderHelper.buildProgram(TextResourceReader.readTextFileFromResource(context, vertexShaderResourceId),
+        //拿到着色器GLSL文件，用buildProgram构建Program
+        program = ShaderHelper.buildProgram(
+                TextResourceReader.readTextFileFromResource(context, vertexShaderResourceId),
                 TextResourceReader.readTextFileFromResource(context, fragmentShaderResourceId));
     }
 
-    public void useProgram(){
+    public void useProgram() {
         glUseProgram(program);
     }
 
