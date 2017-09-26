@@ -38,11 +38,14 @@ public class TextureShaderProgragm extends ShaderProgram {
     }
 
     public void setUniforms(float[] matrix, int textureId) {
+        //传递正交投影矩阵
         glUniformMatrix4fv(uMatrixLocation, 1, false, matrix, 0);
+        //纹理单元保存纹理，GPU只能绘制有限的纹理，需要提高渲染速度的话，需要多个纹理单元保存纹理切换
         glActiveTexture(GL_TEXTURE0);
+        //将纹理绑定到单元
         glBindTexture(GL_TEXTURE_2D, textureId);
-
-        glUniform1i(uTextureUnitLocation, 0);
+        //将纹理单元传递给u_TextureUnit
+        glUniform1i(uTextureUnitLocation, 0);//0，对应纹理第一层
 
     }
 

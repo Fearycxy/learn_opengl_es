@@ -28,6 +28,7 @@ public class Table {
             0.5f, 0.8f, 1f, 0.1f,
             -0.5f, 0.8f, 0f, 0.1f,
             -0.5f, -0.8f, 0f, 0.9f
+           //这里坐标真心傻逼，为什么不用一套？？？？
     };
 
     private final VertexArray vertexArray;

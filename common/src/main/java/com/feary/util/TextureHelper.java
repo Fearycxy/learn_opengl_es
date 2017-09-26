@@ -44,6 +44,7 @@ public class TextureHelper {
             return 0;
         }
         //二维纹理，对象ID;
+        // 历史遗留的垃圾api协议
         glBindTexture(GL_TEXTURE_2D, textureObjectIds[0]);
 
         //纹理扩大或缩小的时候，需要纹理过滤来告知，纹理元素挤压到更小的片段 - 缩小 ,纹理元素拓展到更大的 片段 - 放大
