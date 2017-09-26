@@ -28,7 +28,7 @@ public class TextureShaderProgragm extends ShaderProgram {
 
 
     public TextureShaderProgragm(Context context) {
-        super(context, R.raw.texture_vertex_shader, R.raw.textture_fragment_shader);
+        super(context, R.raw.texture_vertex_shader, R.raw.texture_fragment_shader);
 
         uMatrixLocation = glGetUniformLocation(program, U_MATRIX);
         uTextureUnitLocation = glGetUniformLocation(program, U_TEXTURE_UNIT);
