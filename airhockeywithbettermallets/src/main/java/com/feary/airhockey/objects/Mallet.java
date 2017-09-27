@@ -4,6 +4,9 @@ import android.opengl.GLES20;
 
 import com.feary.airhockey.data.VertexArray;
 import com.feary.airhockey.program.ColorShaderProgram;
+import com.feary.util.Geometry;
+
+import java.util.List;
 
 import static com.feary.airhockey.Constants.BYTES_PER_FLOAT;
 
@@ -12,39 +15,36 @@ import static com.feary.airhockey.Constants.BYTES_PER_FLOAT;
  */
 
 public class Mallet {
-    private static final int POSITION_COMPONENT_COUNT = 2;
-    private static final int COLOR_COMPONENT_COUNT = 3;
-    private static final int STRIDE =
-            (POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT;
+    private static final int POSITION_COMPONENT_COUNT = 3;
 
-    private static final float[] VERTEX_DATA = {
-            0f, -0.4f, 0f, 0f, 1f,
-            0f, 0.4f, 1f, 0f, 0f
-    };
+    public final float radius;
+    public final float height;
 
     private final VertexArray vertexArray;
+    private final List<ObjectBuilder.DrawCommand> drawList;
 
-    public Mallet() {
-        vertexArray = new VertexArray(VERTEX_DATA);
+    public Mallet(float radius, float height, int numPointsAroundMallet) {
+        ObjectBuilder.GeneratedData generatedData =
+                ObjectBuilder.createMallet(new Geometry.Point(0f, 0f, 0f), radius, height,
+                        numPointsAroundMallet);
+
+        this.radius = radius;
+        this.height = height;
+
+        vertexArray = new VertexArray(generatedData.vertexData);
+        drawList = generatedData.drawList;
     }
 
-    public void bindData(ColorShaderProgram colorProgram) {
-        vertexArray.setVertexAttribPointer(
-                0,
-                colorProgram.getPositionAttributeLocation(),
-                POSITION_COMPONENT_COUNT,
-                STRIDE
-        );
-
-        vertexArray.setVertexAttribPointer(
-                POSITION_COMPONENT_COUNT,
-                colorProgram.getColorAttributeLocation(),
-                COLOR_COMPONENT_COUNT,
-                STRIDE
-        );
+    //把顶点数据存储在本地缓冲区中
+    public void bindData(ColorShaderProgram colorShaderProgram) {
+        vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributeLocation(),
+                POSITION_COMPONENT_COUNT, 0);
     }
 
+    //绘画命令 存储在 drawList 中
     public void draw() {
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, 2);
+        for (ObjectBuilder.DrawCommand drawCommand : drawList) {
+            drawCommand.draw();
+        }
     }
 }

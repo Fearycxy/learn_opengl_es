@@ -37,6 +37,7 @@ public class AirHockeyRender implements Renderer {
 
     private final float[] projectionMatrix = new float[16];
     private final float[] modelMatrix = new float[16];
+    private final float[] modelViewProjectionMatrix = new float[16];
 
     private Table table;
     private Mallet mallet;
@@ -57,7 +58,7 @@ public class AirHockeyRender implements Renderer {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         table = new Table();
-        mallet = new Mallet();
+        mallet = new Mallet(0.08f,0.15f,32);
 
         textureProgragm = new TextureShaderProgragm(context);
         colorProgram = new ColorShaderProgram(context);
@@ -91,7 +92,7 @@ public class AirHockeyRender implements Renderer {
         table.draw();
 
         colorProgram.useProgram();
-        colorProgram.setUniforms(projectionMatrix);
+        colorProgram.setUniforms(modelViewProjectionMatrix,1f,0f,0f);
         mallet.bindData(colorProgram);
         mallet.draw();
     }
