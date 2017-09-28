@@ -2,10 +2,10 @@ package com.feary.airhockey.objects;
 
 import android.opengl.GLES20;
 
-import com.feary.airhockey.data.VertexArray;
 import com.feary.airhockey.program.ColorShaderProgram;
+import com.feary.util.VertexArray;
 
-import static com.feary.airhockey.Constants.BYTES_PER_FLOAT;
+import static com.feary.util.Constants.BYTES_PER_FLOAT;
 
 /**
  * Created by feary on 2017/9/25.

@@ -1,4 +1,4 @@
-package com.feary.airhockey.data;
+package com.feary.util;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -7,7 +7,6 @@ import java.nio.FloatBuffer;
 import static android.opengl.GLES20.GL_FLOAT;
 import static android.opengl.GLES20.glEnableVertexAttribArray;
 import static android.opengl.GLES20.glVertexAttribPointer;
-import static com.feary.airhockey.Constants.BYTES_PER_FLOAT;
 
 /**
  * Created by feary on 2017/9/21.
@@ -19,7 +18,7 @@ public class VertexArray {
 
     public VertexArray(float[] vertexData) {
         floatBuffer = ByteBuffer
-                .allocateDirect(vertexData.length * BYTES_PER_FLOAT)
+                .allocateDirect(vertexData.length * Constants.BYTES_PER_FLOAT)
                 .order(ByteOrder.nativeOrder())
                 .asFloatBuffer()
                 .put(vertexData);

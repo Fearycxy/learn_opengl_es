@@ -1,6 +1,6 @@
 package com.feary.airhockey.objects;
 
-import com.feary.airhockey.data.VertexArray;
+import com.feary.util.VertexArray;
 import com.feary.airhockey.program.ColorShaderProgram;
 import com.feary.util.Geometry;
 

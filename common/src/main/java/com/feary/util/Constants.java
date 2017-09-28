@@ -1,4 +1,4 @@
-package com.feary.airhockey;
+package com.feary.util;
 
 /**
  * Created by feary on 2017/9/21.

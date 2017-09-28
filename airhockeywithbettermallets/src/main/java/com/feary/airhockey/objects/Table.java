@@ -1,10 +1,8 @@
 package com.feary.airhockey.objects;
 
-import com.feary.airhockey.Constants;
-import com.feary.airhockey.data.VertexArray;
+import com.feary.util.Constants;
+import com.feary.util.VertexArray;
 import com.feary.airhockey.program.TextureShaderProgragm;
-
-import java.nio.FloatBuffer;
 
 import static android.opengl.GLES20.GL_TRIANGLE_FAN;
 import static android.opengl.GLES20.glDrawArrays;
